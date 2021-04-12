@@ -1,20 +1,23 @@
 import { Component } from 'react';
 import './App.css';
 import TodoContainer from './components/TodoContainer'
-
+import TodoForm from './components/TodoForm'
 class App extends Component {
 
   state = {
-    todos: [
-      {title: "First Todo", content: "This is my First Todo"},
-      {title: "Second Todo", content: "This is my Second Todo"},
-      {title: "Third Todo", content: "This is my Third Todo"},
-    ]
+    todos: []
+  }
+
+  componentDidMount(){
+    fetch("http://localhost:3000/todos")
+      .then(response => response.json())
+      .then(todos => this.setState({todos}))
   }
 
   render(){
     return (
       <div className="App">
+        <TodoForm />
         <TodoContainer todos={this.state.todos} />
       </div>
     );
